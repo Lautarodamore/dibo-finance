@@ -1,0 +1,11 @@
+{
+  "name": "dibo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "dibo defi project",
+  "license": "MIT",
+  "workspaces": [
+    "dapp",
+    "contracts"
+  ]
+}
