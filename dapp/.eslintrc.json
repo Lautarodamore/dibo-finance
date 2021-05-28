@@ -21,6 +21,9 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "react/display-name": "off",
         "react/prop-types": "off",
         "no-restricted-imports": "error",
         "no-undef": "off",
