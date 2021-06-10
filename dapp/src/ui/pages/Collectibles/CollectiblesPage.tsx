@@ -1,8 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Mode } from '../../application/theme/theme';
+import { CollectiblesPresenter, CollectiblesView } from './CollectiblesPresenter';
+import { Presentable } from '../../components/Presentable';
 
-export class CollectiblesPage extends React.Component {
+export class CollectiblesPage extends Presentable<CollectiblesPresenter> implements CollectiblesView {
+	componentDidMount() {
+		this.presenter.start();
+	}
+
+	hiView(): void {
+		console.log('Hi view!');
+	}
+
 	render(): JSX.Element {
 		return <>
 			<div>
