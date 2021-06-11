@@ -1,16 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Mode } from '../../application/theme/theme';
-import { CollectiblesPresenter, CollectiblesView } from './CollectiblesPresenter';
+import { CollectiblesPresenter, CollectiblesView, CollectiblesVM } from './CollectiblesPresenter';
 import { Presentable } from '../../components/Presentable';
 
-export class CollectiblesPage extends Presentable<CollectiblesPresenter> implements CollectiblesView {
+interface State {
+	collectibles: CollectiblesVM[];
+}
+
+interface Props {
+}
+
+export class CollectiblesPage extends Presentable<CollectiblesPresenter, Props, State> implements CollectiblesView {
+	state: State = {
+		collectibles: [],
+	}
+
 	componentDidMount() {
 		this.presenter.start();
 	}
 
-	hiView(): void {
-		console.log('Hi view!');
+	showCollectibles(collectibles: CollectiblesVM[]) {
+		this.setState({ collectibles });
 	}
 
 	render(): JSX.Element {
@@ -19,76 +30,20 @@ export class CollectiblesPage extends Presentable<CollectiblesPresenter> impleme
 				<h2 style={{ color: '#FF5733' }}>DIBO Collectibles</h2>
 			</div>
 			<CollectiblesLayout>
-				<CollectibleCard className={'hover_animation'}>
-					<img
-						src={'https://images.unsplash.com/photo-1589585686575-3d7b754a9ba5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=789&q=80'}
-						alt={'Burbujas'}
-						title={'Burbjujas'}
-					/>
-					<div className={'collectible_detail'}>
-						<p>Lorem ipsum </p>
-					</div>
-				</CollectibleCard>
-				<CollectibleCard className={'hover_animation'}>
-					<img
-						src={'https://images.unsplash.com/photo-1589585686575-3d7b754a9ba5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=789&q=80'}
-						alt={'Burbujas'}
-						title={'Burbjujas'}
-					/>
-					<div className={'collectible_detail'}>
-						<p>Lorem ipsum </p>
-					</div>
-				</CollectibleCard>
-				<CollectibleCard className={'hover_animation'}>
-					<img
-						src={'https://images.unsplash.com/photo-1589585686575-3d7b754a9ba5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=789&q=80'}
-						alt={'Burbujas'}
-						title={'Burbjujas'}
-					/>
-					<div className={'collectible_detail'}>
-						<p>Lorem ipsum </p>
-					</div>
-				</CollectibleCard>
-				<CollectibleCard className={'hover_animation'}>
-					<img
-						src={'https://images.unsplash.com/photo-1589585686575-3d7b754a9ba5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=789&q=80'}
-						alt={'Burbujas'}
-						title={'Burbjujas'}
-					/>
-					<div className={'collectible_detail'}>
-						<p>Lorem ipsum </p>
-					</div>
-				</CollectibleCard>
-				<CollectibleCard className={'hover_animation'}>
-					<img
-						src={'https://images.unsplash.com/photo-1589585686575-3d7b754a9ba5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=789&q=80'}
-						alt={'Burbujas'}
-						title={'Burbjujas'}
-					/>
-					<div className={'collectible_detail'}>
-						<p>Lorem ipsum </p>
-					</div>
-				</CollectibleCard>
-				<CollectibleCard className={'hover_animation'}>
-					<img
-						src={'https://images.unsplash.com/photo-1589585686575-3d7b754a9ba5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=789&q=80'}
-						alt={'Burbujas'}
-						title={'Burbjujas'}
-					/>
-					<div className={'collectible_detail'}>
-						<p>Lorem ipsum </p>
-					</div>
-				</CollectibleCard>
-				<CollectibleCard className={'hover_animation'}>
-					<img
-						src={'https://images.unsplash.com/photo-1589585686575-3d7b754a9ba5?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=789&q=80'}
-						alt={'Burbujas'}
-						title={'Burbjujas'}
-					/>
-					<div className={'collectible_detail'}>
-						<p>Lorem ipsum </p>
-					</div>
-				</CollectibleCard>
+				{
+					this.state.collectibles.map((collectible, index) =>
+						<CollectibleCard key={index} className={'hover_animation'}>
+							<img
+								src={collectible.url}
+								alt={'Burbujas'}
+								title={'Burbjujas'}
+							/>
+							<div className={'collectible_detail'}>
+								<p>{collectible.title}</p>
+							</div>
+						</CollectibleCard>
+					)
+				}
 			</CollectiblesLayout>
 		</>;
 	}
